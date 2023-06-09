@@ -44,7 +44,14 @@ exports.createProfil = async (req, res, next) => {
     try {
         const database = client.db('pangolin');
         const lists = database.collection('profils');
-        const data = await lists.insertOne()
+        console.log(req)
+        const newProfil = {
+            name: req.params.name,
+            emailaddress: req.params.email,
+            role: req.params.role,
+            friendsList: "",
+        };
+        const data = await lists.insertOne(newProfil)
         if(data.emailAddress == req.query.email && data.password == req.query.password ){
           const friendsList = [];
           const cusror = await lists.find({"_id" : { "$in" : data.friendsList } });

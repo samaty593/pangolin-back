@@ -5,5 +5,6 @@ const todoController = require("../controlers/todo")
 router.get("", todoController.getMyProfilInfo);
 router.delete("", todoController.deleteFriend);
 router.get("/listAll", todoController.getAllPangolin);
-router.put("",todoController.addFriend)
+router.put("", todoController.addFriend);
+router.post("", todoController.createProfil);
 module.exports = router;
