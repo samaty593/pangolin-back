@@ -49,7 +49,7 @@ exports.createProfil = async (req, res, next) => {
             emailAddress: req.body.params.emailAddress,
             role: req.body.params.role,
             password: req.body.params.password,
-            friendsList: "",
+            friendsList: [],
         };
         await lists.insertOne(newProfil);
 
