@@ -44,31 +44,17 @@ exports.createProfil = async (req, res, next) => {
     try {
         const database = client.db('pangolin');
         const lists = database.collection('profils');
-        console.log(req)
         const newProfil = {
-            name: req.params.name,
-            emailaddress: req.params.email,
-            role: req.params.role,
+            name: req.body.params.name,
+            emailAddress: req.body.params.emailAddress,
+            role: req.body.params.role,
+            password: req.body.params.password,
             friendsList: "",
         };
-        const data = await lists.insertOne(newProfil)
-        if(data.emailAddress == req.query.email && data.password == req.query.password ){
-          const friendsList = [];
-          const cusror = await lists.find({"_id" : { "$in" : data.friendsList } });
-          for await (const doc of cusror) {
-             friendsList.push(doc);
-          }
+        await lists.insertOne(newProfil);
 
-          res.status(200).send(JSON.stringify({
-              verified: true,
-              email: data.emailAddress,
-              name: data.name,
-              role: data.role,
-              friendsList: friendsList,
-              password: data.password,
-          }))
-        }
-      } catch(err) {
+          res.status(200).send({ message: 'your profil has been recorded' })
+        } catch(err) {
           console.log(err);
       } finally {
           await client.close();
