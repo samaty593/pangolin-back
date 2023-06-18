@@ -72,15 +72,15 @@ exports.deleteFriend = async (req, res, next) => {
         const update = {  $pull: { 'friendsList': new BSON.ObjectId(req.query.friend_Id)}};
         const data = await lists.updateOne(queryUser, update);
         
-        res.status(200).send(JSON.stringify({
-            message: 'your friend has been deleted'
-        }));
         const dataUp = await lists.findOne(queryUser);
         const friendsList = [];
         const cusror = await lists.find({"_id" : { "$in" : dataUp.friendsList } });
         for await (const doc of cusror) {
            friendsList.push(doc);
-        }
+        };
+        res.status(200).send(JSON.stringify({
+            message: 'your friend has been deleted'
+        }));
     } catch(err) {
         console.log(err);
     } finally {
