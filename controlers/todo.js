@@ -71,7 +71,7 @@ exports.deleteFriend = async (req, res, next) => {
         const queryUser = { 'name': req.query.user };
         const update = {  $pull: { 'friendsList': new BSON.ObjectId(req.query.friend_Id)}};
         const data = await lists.updateOne(queryUser, update);
-        
+        console.log(data)
         // const dataUp = await lists.findOne(queryUser);
         // const friendsList = [];
         // const cusror = await lists.find({"_id" : { "$in" : dataUp.friendsList } });
